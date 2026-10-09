@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "build": 2,
-  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-2/oche.apk",
-  "notes": "Первая версия: иконка, страница скачивания, QR ведут на сайт, проверка обновлений"
+  "build": 3,
+  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-3/oche.apk",
+  "notes": "Исправления по ревью"
 }
