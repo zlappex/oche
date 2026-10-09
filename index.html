@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oche — счёт в дартс</title>
+<meta name="description" content="Oche: считает очки в дартс за всю компанию. Скачать для Android.">
+<meta name="theme-color" content="#0B0B0E">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --bg: #0B0B0E; --card: #16161B; --line: #2A2A31;
+    --text: #EDEDF0; --muted: #9A9AA3; --accent: #FFB020; --on-accent: #1A1205;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 520px; margin: 0 auto; padding: 32px 16px 48px; }
+  .hero { text-align: center; }
+  .hero img { width: 120px; height: 120px; border-radius: 28px; }
+  h1 { font-size: 32px; margin: 12px 0 4px; }
+  h2 { font-size: 20px; margin: 0 0 8px; }
+  .muted { color: var(--muted); }
+  .btn {
+    display: block; width: 100%; padding: 16px; margin: 12px 0 0;
+    border: 0; border-radius: 14px; text-align: center; text-decoration: none;
+    font-size: 18px; font-weight: 700; cursor: pointer;
+    background: var(--accent); color: var(--on-accent);
+  }
+  .btn.secondary { background: transparent; color: var(--accent); border: 1px solid var(--line); }
+  .card { background: var(--card); border-radius: 16px; padding: 20px; margin: 20px 0; }
+  .card.highlight { border: 1px solid var(--accent); }
+  .code {
+    font: 700 32px/1.2 ui-monospace, Consolas, monospace; letter-spacing: 4px;
+    text-align: center; padding: 12px; margin: 12px 0 0;
+    background: var(--bg); border-radius: 12px; user-select: all;
+  }
+  ol { padding-left: 20px; margin: 8px 0 0; }
+  li { margin: 6px 0; }
+  .features { list-style: none; padding: 0; }
+  .features li::before { content: "●"; color: var(--accent); margin-right: 10px; }
+  [hidden] { display: none !important; }
+  footer { text-align: center; font-size: 13px; margin-top: 32px; }
+</style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <img src="icon.png" alt="Oche">
+    <p class="muted">Счёт в дартс за всю компанию: один телефон считает за всех</p>
+  </section>
+
+  <section class="card highlight" id="claim" hidden>
+    <h2>Вас отметили в игре</h2>
+    <p>Заберите свою статистику из этой партии в свой профиль.</p>
+    <ol>
+      <li>Установите Oche — кнопка ниже.</li>
+      <li>Войдите: «Аккаунт» → email → код из письма.</li>
+      <li>Нажмите «Забрать статистику гостя» и введите код:</li>
+    </ol>
+    <div class="code" id="claim-code"></div>
+    <a class="btn secondary" id="claim-open" href="#">Уже установлено — открыть в приложении</a>
+  </section>
+
+  <section class="card highlight" id="player" hidden>
+    <h2>Это QR игрока <span id="player-name"></span></h2>
+    <p>Хозяин игры сканирует его в Oche на экране «Состав», чтобы добавить игрока в партию.</p>
+  </section>
+
+  <a class="btn" id="download" href="#">Скачать для Android</a>
+  <p class="muted" id="version" style="text-align:center;margin:8px 0 0"></p>
+  <p class="muted" id="notes" style="text-align:center;margin:4px 0 0"></p>
+
+  <section class="card">
+    <h2>Как установить</h2>
+    <ol>
+      <li>Нажмите «Скачать» и откройте скачанный файл <b>oche.apk</b>.</li>
+      <li>Android спросит про установку из неизвестного источника — разрешите для браузера.</li>
+      <li>Нажмите «Установить». Обновления потом приходят в самом приложении.</li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>Что умеет</h2>
+    <ul class="features">
+      <li>501, 301, Крикет, Вокруг света, Count-Up и «На вылет»</li>
+      <li>Регистрация не нужна — игрок это просто имя</li>
+      <li>Работает без интернета</li>
+      <li>Подсказки закрытия, статистика и история игр</li>
+      <li>Аккаунт по желанию: статистика на всех устройствах</li>
+    </ul>
+  </section>
+
+  <footer class="muted">Oche · бесплатно, без рекламы</footer>
+</main>
+<script>
+  const params = new URLSearchParams(location.search);
+  const pkg = "app.oche.oche";
+  const show = (id) => document.getElementById(id).hidden = false;
+
+  // Codes and names come from the URL: validate, and only ever set textContent.
+  const claim = (params.get("claim") || "").toLowerCase();
+  if (/^[a-z0-9]{10}$/.test(claim)) {
+    show("claim");
+    document.getElementById("claim-code").textContent = claim;
+    document.getElementById("claim-open").href =
+      "intent://claim/" + claim + "#Intent;scheme=oche;package=" + pkg + ";end";
+  }
+
+  const playerName = (params.get("name") || "").slice(0, 32);
+  if (params.get("player") && playerName) {
+    show("player");
+    document.getElementById("player-name").textContent = playerName;
+  }
+
+  fetch("version.json", { cache: "no-store" })
+    .then((r) => r.ok ? r.json() : Promise.reject(r.status))
+    .then((v) => {
+      if (typeof v.apk === "string" && v.apk.startsWith("https://")) {
+        document.getElementById("download").href = v.apk;
+      }
+      document.getElementById("version").textContent = "Версия " + v.version;
+      if (v.notes) document.getElementById("notes").textContent = v.notes;
+    })
+    .catch(() => {
+      document.getElementById("version").textContent = "Не удалось узнать последнюю версию";
+    });
+</script>
+</body>
+</html>
