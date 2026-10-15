@@ -76,7 +76,7 @@
   <section class="card">
     <h2>Как установить</h2>
     <ol>
-      <li>Нажмите «Скачать» и откройте скачанный файл <b>oche.apk</b>.</li>
+      <li>Нажмите «Скачать» и откройте скачанный файл <b>oche-….apk</b>.</li>
       <li>Android спросит про установку из неизвестного источника — разрешите для браузера.</li>
       <li>Нажмите «Установить». Обновления потом приходят в самом приложении.</li>
     </ol>
@@ -121,7 +121,10 @@
       if (typeof v.apk === "string" && v.apk.startsWith("https://")) {
         document.getElementById("download").href = v.apk;
       }
-      document.getElementById("version").textContent = "Версия " + v.version;
+      // "0.1.0 (5)": the build number tells releases apart, as in the
+      // app's settings.
+      const build = Number.isInteger(v.build) ? " (" + v.build + ")" : "";
+      document.getElementById("version").textContent = "Версия " + v.version + build;
       if (v.notes) document.getElementById("notes").textContent = v.notes;
     })
     .catch(() => {

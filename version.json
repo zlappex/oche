@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "build": 5,
-  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-5/oche.apk",
-  "notes": "Защита статистики: в игры можно добавить только по личному QR"
+  "build": 6,
+  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-6/oche-0.1.0-6.apk",
+  "notes": "Номер версии на сайте и в настройках"
 }
