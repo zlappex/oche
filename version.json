@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "build": 4,
-  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-4/oche.apk",
-  "notes": "Новый экран режимов, табло для больших компаний"
+  "build": 5,
+  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-5/oche.apk",
+  "notes": "Защита статистики: в игры можно добавить только по личному QR"
 }
