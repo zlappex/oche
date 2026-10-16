@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "build": 6,
-  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-6/oche-0.1.0-6.apk",
-  "notes": "Номер версии на сайте и в настройках"
+  "build": 7,
+  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.0-7/oche-0.1.0-7.apk",
+  "notes": "Доиграть круг: лег получает закрывший меньшим числом дротиков. Понятнее для новичков: причины перебора, подсказки, термины. Отправка журнала игры и отчёта об ошибках"
 }
