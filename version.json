@@ -1,6 +1,6 @@
 {
-  "version": "0.1.2",
-  "build": 9,
-  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.2-9/oche-0.1.2-9.apk",
-  "notes": "Доиграть круг объясняется по ходу игры, нейтральные формулировки, окно отчёта после вылета, «Позже» у обновления"
+  "version": "0.1.3",
+  "build": 10,
+  "apk": "https://github.com/zlappex/oche/releases/download/v0.1.3-10/oche-0.1.3-10.apk",
+  "notes": "Нейтральные подписи: «Пропустить ходы» и «Вернуть в игру»"
 }
